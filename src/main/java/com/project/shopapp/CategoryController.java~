@@ -1,0 +1,32 @@
+package com.project.shopapp;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("api/v1/categories")
+public class CategoryController {
+    //hien thi tat ca cac category
+    @GetMapping("") //localhost:8080/api/v1/categories/?page=1&limit=10
+    public ResponseEntity<String> getAllCategories(
+            @RequestParam("page") int page,
+            @RequestParam("limit") int limit
+    ) {
+        return ResponseEntity.ok(String.format("hien thi tat ca cac category page %d limit %d", page, limit));
+    }
+    @PostMapping("")
+    //neu tham so truyen bao la 1 doi tuong thi sao ? => data transfer object
+    public ResponseEntity<String> insertCategory() {
+        return ResponseEntity.ok("nhap cat category");
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateCategory(@PathVariable Long id) {
+        return ResponseEntity.ok("cap nhat category " + id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCategory(@PathVariable Long id) {
+        return ResponseEntity.ok("xoa category " + id);
+    }
+}
