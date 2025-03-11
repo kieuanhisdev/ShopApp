@@ -13,4 +13,5 @@ import lombok.*;
 public class CategoryDTO {
     @NotEmpty(message = "name is required")
     private String name;
+    private long id;
 }

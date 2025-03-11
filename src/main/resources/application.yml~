@@ -2,11 +2,12 @@ server:
     port: 8088
 
 
+
 spring:
     datasource:
         url: jdbc:postgresql://localhost:5432/your_database
-        username: your_username
-        password: your_password
+        username: kieuem
+        password: 123456
         driver-class-name: org.postgresql.Driver
     jpa:
         hibernate:
@@ -14,3 +15,7 @@ spring:
         properties:
             hibernate:
                 dialect: org.hibernate.dialect.PostgreSQLDialect
+    servlet:
+      multipart:
+          max-file-size: 10MB
+          
