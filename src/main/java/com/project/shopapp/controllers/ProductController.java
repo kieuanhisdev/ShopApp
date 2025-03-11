@@ -49,24 +49,32 @@ public class ProductController {
                         .toList();
                 return ResponseEntity.badRequest().body(errorMessages);
             }
-            MultipartFile file = productDTO.getFile();
-            if(file!=null){
-                //kiem tra kich thuoc file va dinh dang
-                if(file.getSize() > 10 * 1024 * 1024) {
+            List<MultipartFile> files = productDTO.getFiles();
+            files = files == null ? List.of() : files;
+            for (MultipartFile file : files) {
+                    if(file.getSize()==0){
+                        continue;
+                    }
+                    //kiem tra kich thuoc file va dinh dang
+                    if(file.getSize() > 10 * 1024 * 1024) {
 //                    throw new ResponseStatusException(
 //                            HttpStatus.PAYLOAD_TOO_LARGE, "kich thuoc file qua lon"
 //                    );
-                    return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
-                            .body("kich thuoc file qua lon");
-                }
-                String contentType = file.getContentType();
-                if (contentType ==null || !contentType.startsWith("image/")) {
-                    return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
-                            .body("file must be an image");
-                }
-                String fileName = storeFile(file);
-                productDTO.setThumbnail(fileName);
+                        return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
+                                .body("kich thuoc file qua lon");
+                    }
+                    String contentType = file.getContentType();
+                    if (contentType ==null || !contentType.startsWith("image/")) {
+                        return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+                                .body("file must be an image");
+                    }
+                    String fileName = storeFile(file);
+                    productDTO.setThumbnail(fileName);
+
+                    //luu file vao bang product images
+
             }
+
 
             return ResponseEntity.ok("product created successfully");
 
