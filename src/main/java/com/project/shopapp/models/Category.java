@@ -10,6 +10,8 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
+
 public class Category {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)

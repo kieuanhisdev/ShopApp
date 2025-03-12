@@ -1,4 +1,6 @@
 package com.project.shopapp.repositories;
 
-public class RoleRepository {
+import com.project.shopapp.models.Role;
+
+public interface RoleRepository extends JpaRepository<Role, Long> {
 }
