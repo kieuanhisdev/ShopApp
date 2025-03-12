@@ -3,7 +3,13 @@ package com.project.shopapp.controllers;
 
 import ch.qos.logback.core.util.StringUtil;
 import com.project.shopapp.dtos.ProductDTO;
+import com.project.shopapp.dtos.ProductImageDTO;
+import com.project.shopapp.models.Product;
+import com.project.shopapp.models.ProductImage;
+import com.project.shopapp.services.IProductService;
+import com.project.shopapp.services.ProductService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +30,10 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/products")
+@RequiredArgsConstructor
 public class ProductController {
 
-
+    private final IProductService productService;
 
     @GetMapping("") //localhost:8080/api/v1/products/?page=1&limit=10
     public ResponseEntity<String> getAllProducts(
@@ -49,10 +56,14 @@ public class ProductController {
                         .toList();
                 return ResponseEntity.badRequest().body(errorMessages);
             }
+            Product newProduct = productService.createProduct(productDTO);
+
             List<MultipartFile> files = productDTO.getFiles();
             files = files == null ? List.of() : files;
             for (MultipartFile file : files) {
-
+                    if(file.getSize()==0){
+                        continue;
+                    }
                     //kiem tra kich thuoc file va dinh dang
                     if(file.getSize() > 10 * 1024 * 1024) {
 //                    throw new ResponseStatusException(
@@ -70,9 +81,10 @@ public class ProductController {
                     productDTO.setThumbnail(fileName);
 
                     //luu file vao bang product images
-
+                    ProductImage productImage = createProductImage(newProduct.getId(), ProductImageDTO.builder()
+                            .imageUrl(fileName)
+                            .build());
             }
-
 
             return ResponseEntity.ok("product created successfully");
 
