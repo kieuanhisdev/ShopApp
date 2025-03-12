@@ -1,0 +1,15 @@
+package com.project.shopapp.models;
+
+import jakarta.persistence.MappedSuperclass;
+import lombok.*;
+
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@MappedSuperclass
+public class BaseEntity {
+
+}
