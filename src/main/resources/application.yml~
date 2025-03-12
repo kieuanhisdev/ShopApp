@@ -1,11 +1,12 @@
 server:
     port: 8088
 
-
+api:
+    prefix: /api
 
 spring:
     datasource:
-        url: jdbc:postgresql://localhost:5432/your_database
+        url: jdbc:postgresql://localhost:5432/shopapp
         username: kieuem
         password: 123456
         driver-class-name: org.postgresql.Driver

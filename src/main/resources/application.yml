@@ -1,7 +1,8 @@
 server:
     port: 8088
 
-
+api:
+    prefix: api/v1
 
 spring:
     datasource:
