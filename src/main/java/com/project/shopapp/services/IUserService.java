@@ -2,7 +2,7 @@ package com.project.shopapp.services;
 
 import com.project.shopapp.dtos.UserDTO;
 import com.project.shopapp.exceptions.DataNotFoundException;
-import com.project.shopapp.models.User;
+import com.project.shopapp.entity.User;
 
 public interface IUserService {
 

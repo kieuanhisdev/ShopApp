@@ -1,6 +1,7 @@
-package com.project.shopapp.models;
+package com.project.shopapp.entity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "social_accounts")
@@ -9,20 +10,21 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class SocialAccount {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private long id;
+    long id;
 
     @Column(name = "provider", nullable = false, length = 20)
-    private String provider;
+    String provider;
 
     @Column(name = "provider_id", length = 50)
-    private String providerId;
+    String providerId;
 
     @Column(name = "name", length = 50)
-    private String name;
+    String name;
 
     @Column(name = "email", length = 50)
-    private String email;
+    String email;
 }

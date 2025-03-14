@@ -1,9 +1,8 @@
-package com.project.shopapp.models;
+package com.project.shopapp.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDateTime;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "products")
@@ -12,29 +11,29 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Product extends BaseEntity{
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private long id;
+    long id;
 
     @Column(name = "name", nullable = false, length = 350)
-    private String name;
+    String name;
 
     @Column(name = "price", nullable = false)
-    private Float price;
+    Float price;
 
     @Column(name = "thumbnail", length = 300)
-    private String thumbnail;
+    String thumbnail;
 
     @Column(name = "description")
-    private String description;
+    String description;
 
 
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category category;
+    Category category;
 
 
 }

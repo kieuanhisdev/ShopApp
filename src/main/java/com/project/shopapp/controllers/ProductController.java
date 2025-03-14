@@ -1,15 +1,13 @@
 package com.project.shopapp.controllers;
 
 
-import ch.qos.logback.core.util.StringUtil;
 import com.project.shopapp.dtos.ProductDTO;
 import com.project.shopapp.dtos.ProductImageDTO;
 import com.project.shopapp.exceptions.DataNotFoundException;
 import com.project.shopapp.exceptions.InvalidParamException;
-import com.project.shopapp.models.Product;
-import com.project.shopapp.models.ProductImage;
+import com.project.shopapp.entity.Product;
+import com.project.shopapp.entity.ProductImage;
 import com.project.shopapp.services.IProductService;
-import com.project.shopapp.services.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,7 +18,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -47,10 +44,7 @@ public class ProductController {
     }
 
     @PostMapping(value = "")
-    public ResponseEntity<?> createProduct(@Valid @RequestBody  ProductDTO productDTO,
-//
-                                            BindingResult result) {
-
+    public ResponseEntity<?> createProduct(@Valid @RequestBody  ProductDTO productDTO, BindingResult result) {
         try {
             if(result.hasErrors()) {
                 List<String> errorMessages = result.getFieldErrors()

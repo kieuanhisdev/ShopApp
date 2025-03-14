@@ -1,20 +1,25 @@
-package com.project.shopapp.models;
+package com.project.shopapp.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "categories")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
-public class Role {
+
+public class Category {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "name", nullable = false)
     private String name;
+
+
+
 }

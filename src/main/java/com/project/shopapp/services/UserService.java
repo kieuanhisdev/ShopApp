@@ -2,8 +2,8 @@ package com.project.shopapp.services;
 
 import com.project.shopapp.dtos.UserDTO;
 import com.project.shopapp.exceptions.DataNotFoundException;
-import com.project.shopapp.models.Role;
-import com.project.shopapp.models.User;
+import com.project.shopapp.entity.Role;
+import com.project.shopapp.entity.User;
 import com.project.shopapp.repositories.RoleRepository;
 import com.project.shopapp.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;

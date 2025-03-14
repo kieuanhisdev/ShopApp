@@ -1,8 +1,9 @@
-package com.project.shopapp.models;
+package com.project.shopapp.entity;
 
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "order_details")
@@ -11,31 +12,31 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderDetail {
 
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private long id;
+    long id;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Order order;
+    Order order;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+    Product product;
 
     @Column(name = "price", nullable = false)
-    private Float price;
+    Float price;
 
     @Column(name = "number_of_products", nullable = false)
-    private int numberOfProducts;
+    int numberOfProducts;
 
     @Column(name = "total_money", nullable = false)
-    private Float totalMoney;
+    Float totalMoney;
 
     @Column(name = "color")
-    private String color;
+    String color;
 
 }
