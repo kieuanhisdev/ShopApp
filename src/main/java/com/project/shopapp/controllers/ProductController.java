@@ -4,6 +4,8 @@ package com.project.shopapp.controllers;
 import ch.qos.logback.core.util.StringUtil;
 import com.project.shopapp.dtos.ProductDTO;
 import com.project.shopapp.dtos.ProductImageDTO;
+import com.project.shopapp.exceptions.DataNotFoundException;
+import com.project.shopapp.exceptions.InvalidParamException;
 import com.project.shopapp.models.Product;
 import com.project.shopapp.models.ProductImage;
 import com.project.shopapp.services.IProductService;
@@ -24,6 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -43,9 +46,9 @@ public class ProductController {
         return ResponseEntity.ok(String.format("hien thi tat ca cac products page %d limit %d", page, limit));
     }
 
-    @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> insertCategory(@Valid @ModelAttribute ProductDTO productDTO,
-//                                            @RequestPart("file") MultipartFile file,
+    @PostMapping(value = "")
+    public ResponseEntity<?> createProduct(@Valid @RequestBody  ProductDTO productDTO,
+//
                                             BindingResult result) {
 
         try {
@@ -58,39 +61,58 @@ public class ProductController {
             }
             Product newProduct = productService.createProduct(productDTO);
 
-            List<MultipartFile> files = productDTO.getFiles();
-            files = files == null ? List.of() : files;
-            for (MultipartFile file : files) {
-                    if(file.getSize()==0){
-                        continue;
-                    }
-                    //kiem tra kich thuoc file va dinh dang
-                    if(file.getSize() > 10 * 1024 * 1024) {
-//                    throw new ResponseStatusException(
-//                            HttpStatus.PAYLOAD_TOO_LARGE, "kich thuoc file qua lon"
-//                    );
-                        return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
-                                .body("kich thuoc file qua lon");
-                    }
-                    String contentType = file.getContentType();
-                    if (contentType ==null || !contentType.startsWith("image/")) {
-                        return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
-                                .body("file must be an image");
-                    }
-                    String fileName = storeFile(file);
-                    productDTO.setThumbnail(fileName);
-
-                    //luu file vao bang product images
-                    ProductImage productImage = productService.createProductImage(newProduct.getId(), ProductImageDTO.builder()
-                            .imageUrl(fileName)
-                            .build());
-            }
-
-            return ResponseEntity.ok("product created successfully");
+            return ResponseEntity.ok(newProduct);
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    @PostMapping(value = "uploads/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> uploadImages(@PathVariable("id") Long productId, @ModelAttribute("file") List<MultipartFile> files)
+    {
+        Product existingProduct = null;
+        try {
+            existingProduct = productService.getProductById(productId);
+            Product newProduct = productService.updateProduct(existingProduct.getId(), ProductDTO.builder()
+                    .name(existingProduct.getName())
+                    .price(existingProduct.getPrice())
+                    .build());
+
+            files = files == null ? List.of() : files;
+            List<ProductImage> productImages = new ArrayList<>();
+            for (MultipartFile file : files) {
+                if (file.getSize() == 0) {
+                    continue;
+                }
+                //kiem tra kich thuoc file va dinh dang
+                if (file.getSize() > 10 * 1024 * 1024) {
+//                    throw new ResponseStatusException(
+//                            HttpStatus.PAYLOAD_TOO_LARGE, "kich thuoc file qua lon"
+//                    );
+                    return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
+                            .body("kich thuoc file qua lon");
+                }
+                String contentType = file.getContentType();
+                if (contentType == null || !contentType.startsWith("image/")) {
+                    return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+                            .body("file must be an image");
+                }
+                String fileName = storeFile(file);
+                existingProduct.setThumbnail(fileName);
+
+                //luu file vao bang product images
+                ProductImage productImage = productService.createProductImage(newProduct.getId(), ProductImageDTO.builder()
+                        .imageUrl(fileName)
+                        .build());
+                productImages.add(productImage);
+            }
+            return ResponseEntity.ok().body(productImages);
+        } catch (DataNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (InvalidParamException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 

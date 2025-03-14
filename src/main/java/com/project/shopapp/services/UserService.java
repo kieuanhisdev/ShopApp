@@ -8,12 +8,14 @@ import com.project.shopapp.repositories.RoleRepository;
 import com.project.shopapp.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Service;
 
+@Service
 @RequiredArgsConstructor
 public class UserService implements IUserService{
 
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     @Override
     public User createUser(UserDTO userDTO) throws DataNotFoundException {
