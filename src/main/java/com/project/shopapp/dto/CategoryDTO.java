@@ -1,8 +1,7 @@
-package com.project.shopapp.dtos;
+package com.project.shopapp.dto;
 
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Data //tostroing

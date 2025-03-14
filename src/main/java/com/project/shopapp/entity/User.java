@@ -31,6 +31,7 @@ public class User extends BaseEntity {
     @Column(name = "password", length = 200)
     String password;
 
+    @Column(name = "is_active")
     boolean active;
 
     @Column(name = "date_of_birth")
@@ -42,7 +43,7 @@ public class User extends BaseEntity {
     @Column(name = "google_account_id")
     int googleAccountId;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    Role role;
+//    @ManyToOne
+//    @JoinColumn(name = "role_id")
+//    Role role;
 }

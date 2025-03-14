@@ -1,47 +1,47 @@
-package com.project.shopapp.dtos;
+package com.project.shopapp.dto.request;
+
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class UserDTO {
 
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class UserControllerRequest {
     @JsonProperty("full_name")
-    private String fullName;
+    String fullName;
 
     @JsonProperty("phone_number")
     @NotBlank(message = "phone number is required")
-    private String phoneNumber;
-
-//    @NotBlank(message = "email is required")
-    private String address;
+    String phoneNumber;
+    //    @NotBlank(message = "email is required")
+    String address;
 
     @NotBlank(message = "password cannot be empty")
-    private String password;
+    String password;
 
     @JsonProperty("retype_password")
-    private String retypePassword;
+    String retypePassword;
 
     @JsonProperty("date_of_birth")
-    private Date dateOfBirth;
+    Date dateOfBirth;
 
     @JsonProperty("facebook_account_id")
-    private int facebookAccountId;
+    int facebookAccountId;
 
     @JsonProperty("google_account_id")
-    private int googleAccountId;
+    int googleAccountId;
 
     @NotNull(message = "role id is required")
     @JsonProperty("role_id")
-    private Long roleId;
+    Long roleId;
 }

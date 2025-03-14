@@ -1,8 +1,8 @@
 package com.project.shopapp.controllers;
 
 
-import com.project.shopapp.dtos.ProductDTO;
-import com.project.shopapp.dtos.ProductImageDTO;
+import com.project.shopapp.dto.ProductDTO;
+import com.project.shopapp.dto.ProductImageDTO;
 import com.project.shopapp.exceptions.DataNotFoundException;
 import com.project.shopapp.exceptions.InvalidParamException;
 import com.project.shopapp.entity.Product;

@@ -32,7 +32,7 @@ public class UserService{
 //        Role role = roleRepository.findById(request.getRoleId())
 //                .orElseThrow(()-> new DataNotFoundException("role not found"));
 //        newUser.setRole(role);
-        newUser.setActive(true);
+
         //kiem tra neu co accountid, khong yeu cau password
         if(request.getFacebookAccountId()==0 && request.getGoogleAccountId()==0){
             String password = request.getPassword();

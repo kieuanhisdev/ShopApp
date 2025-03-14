@@ -1,4 +1,4 @@
-package com.project.shopapp.dtos;
+package com.project.shopapp.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
@@ -24,7 +24,7 @@ public class OrderDTO {
 
     @JsonProperty("phone_number")
     @NotBlank(message = "phone number is required")
-    @Min(value = 10, message = "phone number must be at least 10 digits")
+    @Min(value = 5, message = "phone number must be at least 5 digits")
     private String phoneNumber;
 
     private String address;

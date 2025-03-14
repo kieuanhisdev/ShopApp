@@ -1,9 +1,11 @@
 package com.project.shopapp.controllers;
 
 
-import com.project.shopapp.dtos.UserDTO;
-import com.project.shopapp.dtos.UserLoginDTO;
+import com.project.shopapp.dto.UserDTO;
+import com.project.shopapp.dto.UserLoginDTO;
+import com.project.shopapp.dto.request.UserControllerRequest;
 import com.project.shopapp.services.IUserService;
+import com.project.shopapp.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +22,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final IUserService userService;
+    private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> createUser(@Valid @RequestBody UserDTO userDTO ,BindingResult result) {
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserControllerRequest request, BindingResult result) {
         try {
 
             if(result.hasErrors()) {
@@ -33,10 +35,10 @@ public class UserController {
                         .toList();
                 return ResponseEntity.badRequest().body(errorMessages);
             }
-            if(!userDTO.getPassword().equals(userDTO.getRetypePassword())) {
+            if(!request.getPassword().equals(request.getRetypePassword())) {
                 return ResponseEntity.badRequest().body("password not match");
             }
-            userService.createUser(userDTO);
+            userService.createUser(request);
             return ResponseEntity.ok("register success");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

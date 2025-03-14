@@ -1,6 +1,6 @@
 package com.project.shopapp.controllers;
 
-import com.project.shopapp.dtos.CategoryDTO;
+import com.project.shopapp.dto.CategoryDTO;
 import com.project.shopapp.entity.Category;
 import com.project.shopapp.services.CategoryService;
 import jakarta.validation.Valid;

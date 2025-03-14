@@ -1,6 +1,6 @@
 package com.project.shopapp.services;
 
-import com.project.shopapp.dtos.UserDTO;
+import com.project.shopapp.dto.UserDTO;
 import com.project.shopapp.exceptions.DataNotFoundException;
 import com.project.shopapp.entity.User;
 
