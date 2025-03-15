@@ -48,7 +48,7 @@ public class UserController {
     public ApiResponse<UserResponse> updateUser(@PathVariable String id, @RequestBody UserUpdateRequest request) {
         ApiResponse<UserResponse> response = new ApiResponse<>();
         userService.updateUser(id, request);
-        response.setData(userService.getUserById(id));
+        response.setData(getUserById(id));
         return response;
     }
 

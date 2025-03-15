@@ -1,16 +1,23 @@
-package com.project.shopapp.dto.respone;
+package com.project.shopapp.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import lombok.*;
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UserResponse {
+
     @JsonProperty("full_name")
     private String fullName;
 
     @JsonProperty("username")
     private String username;
 
+    // Nếu không muốn trả lại password, bạn có thể bỏ qua trường này
     @JsonProperty("password")
     private String password;
 
@@ -27,17 +34,17 @@ public class UserResponse {
     private String email;
 
     @JsonProperty("is_verified")
-    private boolean isVerified = false;
+    private boolean isVerified;
 
     @JsonProperty("status")
-    private boolean status = true;
+    private boolean status;
 
     @JsonProperty("address")
     private String address;
 
     @JsonProperty("profile_picture")
     private String profilePicture;
-    //    Long roleId;
+
     @JsonProperty("role_id")
     private Long roleId;
 }

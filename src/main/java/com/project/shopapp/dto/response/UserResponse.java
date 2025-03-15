@@ -11,6 +11,9 @@ import java.time.LocalDate;
 @Builder
 public class UserResponse {
 
+    @JsonProperty("id")
+    private String id;
+
     @JsonProperty("full_name")
     private String fullName;
 

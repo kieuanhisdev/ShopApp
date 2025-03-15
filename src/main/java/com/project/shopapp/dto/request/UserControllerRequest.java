@@ -14,6 +14,9 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserControllerRequest {
 
+    @JsonProperty("id")
+    private String id;
+
     @NotBlank(message = "Full name is required")
     @Size(min = 2, max = 100, message = "Full name must be between 2 and 100 characters")
     @JsonProperty("full_name")
