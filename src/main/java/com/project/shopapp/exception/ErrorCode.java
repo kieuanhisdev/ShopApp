@@ -9,6 +9,7 @@ public enum ErrorCode {
     USER_NOT_FOUND(1005, "User not found"),
     EMAIL_EXISTED(1006, "Email existed"),
     ROLE_NOT_FOUND(1007, "Role not found"),
+    INVALID_CREDENTIALS(1008, "Invalid credentials"),
     ;
 
     private int code;

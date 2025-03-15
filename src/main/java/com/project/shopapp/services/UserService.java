@@ -28,6 +28,7 @@ public class UserService{
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 //    private final PasswordEncoderService passwordEncoder;
 
     public UserResponse createUser(UserControllerRequest request){
@@ -49,7 +50,7 @@ public class UserService{
         User user = userMapper.toUser(request);
 
         // Mã hóa password nếu cần
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         // Gán role cho user
