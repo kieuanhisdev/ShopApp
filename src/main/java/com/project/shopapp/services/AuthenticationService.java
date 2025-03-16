@@ -79,7 +79,7 @@ public class AuthenticationService {
 
     private String generateToken(String username) {
         //thuat toan ma hoa su dung
-        JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
+        JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
         //
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
                 .subject(username)

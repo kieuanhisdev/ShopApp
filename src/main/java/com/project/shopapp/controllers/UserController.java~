@@ -5,7 +5,6 @@ import com.project.shopapp.dto.request.UserControllerRequest;
 import com.project.shopapp.dto.request.UserUpdateRequest;
 import com.project.shopapp.dto.response.ApiResponse;
 import com.project.shopapp.dto.response.UserResponse;
-import com.project.shopapp.exceptions.DataNotFoundException;
 import com.project.shopapp.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
