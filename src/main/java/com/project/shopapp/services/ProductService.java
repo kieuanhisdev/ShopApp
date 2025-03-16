@@ -11,6 +11,9 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -28,5 +31,23 @@ public class ProductService {
         //chuyen doi entity thanh response
         return productMapper.toProductResponse(newProduct);
     }
+
+    public ProductResponse getProductById(Long id) {
+        Product product = productRepository.findById(id).orElseThrow();
+        return productMapper.toProductResponse(product);
+    }
+
+    public List<ProductResponse> getAllProducts() {
+        List<Product> products = productRepository.findAll();
+        return products.stream()
+                .map(productMapper::toProductResponse)
+                .collect(Collectors.toList());
+    }
+
+//    public ProductResponse updateProduct(Long id, ProductControllerRequest request) {
+//        Product product = productRepository.findById(id).orElseThrow();
+//        productMapper.updateProduct(product, request);
+//        return productMapper.toProductResponse(product);
+//    }
 
 }
