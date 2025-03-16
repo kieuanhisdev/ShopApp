@@ -4,6 +4,7 @@ import com.project.shopapp.dto.request.ProductControllerRequest;
 import com.project.shopapp.dto.response.ProductResponse;
 import com.project.shopapp.entity.Product;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(componentModel = "spring",
@@ -14,4 +15,7 @@ public interface ProductMapper {
 
     // Chuyển từ Entity sang Response DTO
     ProductResponse toProductResponse(Product product);
+
+    //
+    Product updateProduct(@MappingTarget Product product, ProductControllerRequest request);
 }

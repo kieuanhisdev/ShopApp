@@ -44,10 +44,15 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-//    public ProductResponse updateProduct(Long id, ProductControllerRequest request) {
-//        Product product = productRepository.findById(id).orElseThrow();
-//        productMapper.updateProduct(product, request);
-//        return productMapper.toProductResponse(product);
-//    }
+    public ProductResponse updateProduct(Long id, ProductControllerRequest request) {
+        Product product = productRepository.findById(id).orElseThrow();
+        productMapper.updateProduct(product, request);
+        return productMapper.toProductResponse(productRepository.save(product));
+    }
+
+    public String deleteProduct(Long id) {
+        productRepository.deleteById(id);
+        return "Xóa thành công";
+    }
 
 }

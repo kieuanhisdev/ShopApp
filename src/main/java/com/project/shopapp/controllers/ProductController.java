@@ -46,6 +46,18 @@ public class ProductController {
         return response;
     }
 
+    @PutMapping("/{id}")
+    public ApiResponse<ProductResponse> updateProduct(@PathVariable Long id, @RequestBody ProductControllerRequest request) {
+        ApiResponse<ProductResponse> response = new ApiResponse<>();
+        response.setData(productService.updateProduct(id, request));
+        return response;
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        return productService.deleteProduct(id);
+    }
+
 
 
 }
