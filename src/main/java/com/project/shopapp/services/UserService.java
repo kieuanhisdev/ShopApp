@@ -1,22 +1,18 @@
 package com.project.shopapp.services;
 
 import com.project.shopapp.dto.request.UserControllerRequest;
-
 import com.project.shopapp.dto.request.UserUpdateRequest;
 import com.project.shopapp.dto.response.UserResponse;
 import com.project.shopapp.entity.Role;
 import com.project.shopapp.exception.AppException;
 import com.project.shopapp.exception.ErrorCode;
-import com.project.shopapp.exceptions.DataNotFoundException;
 import com.project.shopapp.entity.User;
 import com.project.shopapp.mapper.UserMapper;
 import com.project.shopapp.repositories.RoleRepository;
 import com.project.shopapp.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

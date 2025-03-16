@@ -1,0 +1,20 @@
+package com.project.shopapp.services;
+
+import com.project.shopapp.dto.request.ProductControllerRequest;
+import com.project.shopapp.dto.response.ProductResponse;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+public class ProductService {
+
+
+    public ProductResponse createProduct(ProductControllerRequest request) {
+
+}
