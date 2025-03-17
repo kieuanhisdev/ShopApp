@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +46,7 @@ public class UserController {
         var authentication =  SecurityContextHolder.getContext().getAuthentication();
         log.info("User: " + authentication.getName());
 
-        authentication.getAuthorities().stream()
+        authentication.getAuthorities().forEach(authority -> log.info("Role: " + authority.getAuthority()));
         ApiResponse<List<UserResponse>> response = new ApiResponse<>();
         response.setData(userService.getAllUsers());
         return response;
@@ -58,6 +59,14 @@ public class UserController {
         response.setData(userService.getUserById(id));
         return response;
     }
+
+
+    @GetMapping("/myinfor")
+     ApiResponse<UserResponse> getMyInfo() {
+         ApiResponse<UserResponse> response = new ApiResponse<>();
+         response.setData(userService.getMyInfo());
+         return response;
+     }
 
 
     @DeleteMapping("/{id}")

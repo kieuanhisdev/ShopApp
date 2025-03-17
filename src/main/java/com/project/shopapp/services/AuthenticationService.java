@@ -84,10 +84,10 @@ public class AuthenticationService {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
         //
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(user.getFullName())
+                .subject(user.getUsername())
                 .issuer("kieuanhdev")
                 .issueTime(new Date())
-                .expirationTime(new Date(Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()))
+                .expirationTime(new Date(Instant.now().plus(1, ChronoUnit.DAYS).toEpochMilli()))
                 .claim("scope", (user.getRole().getRoleName()).toUpperCase(Locale.ROOT))
                 .build();
 
