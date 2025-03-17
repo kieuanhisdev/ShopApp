@@ -17,29 +17,29 @@ import java.time.LocalDate;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(name = "product_name", length = 100, nullable = false)
-    private String productName;
+    String productName;
 
     @Column(name = "product_image")
-    private String productImage;
+    String productImage;
 
     @Column(name = "quantity")
-    private Integer quantity;
+    Integer quantity;
 
     @Column(name = "description")
-    private String description;
+    String description;
 
     @Column(name = "price")
-    private Double price;
+    Double price;
 
     @Column(name = "category")
-    private String category;
+    String category;
 
     @Column(name = "status")
-    private Boolean status;
+    Boolean status;
 
     @Column(name = "import_date")
-    private LocalDate importDate;
+    LocalDate importDate;
 }
