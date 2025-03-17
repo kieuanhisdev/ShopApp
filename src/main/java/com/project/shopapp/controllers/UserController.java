@@ -8,13 +8,16 @@ import com.project.shopapp.dto.response.UserResponse;
 import com.project.shopapp.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -38,6 +41,11 @@ public class UserController {
 
     @GetMapping
     public ApiResponse<List<UserResponse>> getAllUsers(){
+
+        var authentication =  SecurityContextHolder.getContext().getAuthentication();
+        log.info("User: " + authentication.getName());
+
+        authentication.getAuthorities().forEach(authority -> log.info("Role: " + authority.getAuthority()));
         ApiResponse<List<UserResponse>> response = new ApiResponse<>();
         response.setData(userService.getAllUsers());
         return response;

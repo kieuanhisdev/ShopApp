@@ -20,9 +20,6 @@ public class UserResponse {
     @JsonProperty("username")
     private String username;
 
-    // Nếu không muốn trả lại password, bạn có thể bỏ qua trường này
-    @JsonProperty("password")
-    private String password;
 
     @JsonProperty("date_of_birth")
     private LocalDate dateOfBirth;

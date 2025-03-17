@@ -23,5 +23,18 @@ spring:
           max-file-size: 10MB
           max-request-size: 10MB
 
+logging:
+    level:
+        org:
+            springframework:
+                web: DEBUG
+        springfox:
+            documentation: DEBUG
+        io:
+            swagger:
+                models: DEBUG
+                request: DEBUG
+
+
 jwt:
     signerkey: "dNxS3y1LZrrcZRT/gCtd2KznGSNcaqneKdV6jyicOFfmiuIzDHPQ5nsiuQVVmQlW"

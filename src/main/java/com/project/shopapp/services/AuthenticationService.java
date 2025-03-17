@@ -9,6 +9,7 @@ import com.project.shopapp.dto.request.AuthenticationRequest;
 import com.project.shopapp.dto.request.IntrospectRequest;
 import com.project.shopapp.dto.response.AuthenticationResponse;
 import com.project.shopapp.dto.response.IntrospectResponse;
+import com.project.shopapp.entity.User;
 import com.project.shopapp.exception.AppException;
 import com.project.shopapp.exception.ErrorCode;
 import com.project.shopapp.repositories.UserRepository;
@@ -25,7 +26,7 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-
+import java.util.Locale;
 
 
 @Service
@@ -50,7 +51,7 @@ public class AuthenticationService {
             throw new AppException(ErrorCode.INVALID_CREDENTIALS);
         }
 
-        var token = generateToken(request.getUsername());
+        var token = generateToken(user);
 
         return AuthenticationResponse.builder()
                 .token(token)
@@ -62,6 +63,7 @@ public class AuthenticationService {
 
     public IntrospectResponse introspect(IntrospectRequest request)
             throws AppException, JOSEException, ParseException {
+
         var token = request.getToken();
 
         JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes());
@@ -77,16 +79,16 @@ public class AuthenticationService {
 
 
 
-    private String generateToken(String username) {
+    private String generateToken(User user) {
         //thuat toan ma hoa su dung
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
         //
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(username)
+                .subject(user.getFullName())
                 .issuer("kieuanhdev")
                 .issueTime(new Date())
                 .expirationTime(new Date(Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()))
-                .claim("userId", userRepository.findByUsername(username).get().getId())
+                .claim("scope", (user.getRole().getRoleName()).toUpperCase(Locale.ROOT))
                 .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
